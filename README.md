@@ -1,0 +1,127 @@
+🛒 Full Stack E-Commerce (React + Django)
+
+This is a full-stack e-commerce project built with Django REST Framework (backend) and React (frontend).
+It includes authentication (JWT), product management, cart, checkout, orders, wishlist, and admin functionality.
+
+🚀 Features
+
+User authentication (Signup, Login, JWT Tokens).
+
+Product listing, detail view, and filtering.
+
+Cart with add/remove/update.
+
+Checkout with order creation & inventory updates.
+
+User profile and "My Orders".
+
+Admin panel (manage products, categories, orders).
+
+Razorpay integration (optional, for payments).
+
+Fully responsive React frontend.
+
+🛠️ Tech Stack
+
+Backend: Django, Django REST Framework, PostgreSQL (or SQLite for dev).
+
+Frontend: React (Vite), React Router, React Query.
+
+Authentication: JWT (djangorestframework-simplejwt).
+
+Deployment Ready: Docker / Nginx / Gunicorn.
+
+📦 Installation & Setup
+1. Clone the Repository
+git clone https://github.com/yourusername/ecommerce-fullstack.git
+cd ecommerce-fullstack
+
+2. Backend Setup (Django)
+cd backend
+
+Create virtual environment:
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
+
+Install dependencies:
+pip install -r requirements.txt
+
+Create .env file:
+SECRET_KEY=your_secret_key
+DEBUG=True
+ALLOWED_HOSTS=*
+
+DATABASE_URL=postgres://username:password@localhost:5432/ecommerce
+# Or leave blank for SQLite in dev
+
+Run migrations:
+python manage.py makemigrations
+python manage.py migrate
+
+Create superuser (admin):
+python manage.py createsuperuser
+
+Start backend server:
+python manage.py runserver
+
+
+Backend will run at 👉 http://127.0.0.1:8000/
+
+3. Frontend Setup (React)
+cd ../frontend
+
+Install dependencies:
+npm install
+
+Create .env file:
+VITE_API_URL=http://127.0.0.1:8000
+
+Run React dev server:
+npm run dev
+
+
+Frontend will run at 👉 http://localhost:5173/
+
+4. Requirements File (backend)
+
+Example requirements.txt:
+
+Django>=5.0,<6.0
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+psycopg2-binary   # for PostgreSQL
+Pillow
+
+🔑 API Endpoints (Examples)
+
+POST /api/signup/ → Register new user
+
+POST /api/login/ → Get JWT tokens
+
+GET /api/products/ → List products
+
+GET /api/cart/ → View cart
+
+POST /api/checkout/ → Checkout & create order
+
+GET /api/orders/ → My Orders
+
+🧑‍💻 Admin Access
+
+Visit:
+
+http://127.0.0.1:8000/admin/
+
+
+Login with superuser credentials.
+
+✅ Common Commands
+Command	Description
+python manage.py makemigrations	Create new migrations
+python manage.py migrate	Apply migrations
+python manage.py createsuperuser	Create admin user
+python manage.py runserver	Run backend server
+npm run dev	Run frontend in dev mode
+npm run build	Build frontend for production
