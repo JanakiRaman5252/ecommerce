@@ -54,7 +54,6 @@ export default function Navbar({ NumCartItems }) {
     <header className="fixed top-0 w-full z-50 bg-[#F2F0EF] shadow-sm">
       <div className="relative">
         <div className="flex justify-between items-center px-6 lg:px-12 py-6 max-w-8xl mx-auto">
-          {/* Left: Menu & Search */}
           <div className="flex items-center gap-6">
             <button ref={buttonRef} onClick={toggleMenu} aria-label="Toggle menu" className="flex items-center cursor-pointer space-x-4">
               {menuOpen ? <X size={30} /> : <Menu size={30} />}
@@ -67,7 +66,6 @@ export default function Navbar({ NumCartItems }) {
             </button>
           </div>
 
-          {/* Logo */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link to="/" aria-label="Home">
               <img src={logo} alt="Logo" className="h-10 sm:h-16 mx-auto" />
@@ -141,7 +139,6 @@ export default function Navbar({ NumCartItems }) {
           </form>
         </div>
 
-        {/* Dropdown Menu */}
         <nav ref={menuRef} className={`bg-[#F2F0EF] absolute mt-0 left-6 w-28 shadow-md text-left transition-all duration-300 ease-in-out ${menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} role="navigation">
           <ul className="flex flex-col text-sm font-medium justify-center items-center text-left">
             <li><Link to="/" onClick={() => setMenuOpen(false)} className="block px-4 py-2 hover:bg-gray-100">Home</Link></li>

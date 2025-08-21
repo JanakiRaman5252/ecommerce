@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
-import { useAuth } from "../../context/AuthContext"; // ✅ Auth context
+import { useAuth } from "../../context/AuthContext"; 
 import { API_URL } from "../../api";
 
 export default function AdminProductsPage() {
   const { user } = useAuth(); 
   const { products, createProduct, updateProduct, deleteProduct } = useProducts();
   const [form, setForm] = useState({ name: "", description: "", price: "", discount: "", inventory: "" });
-  const [image, setImage] = useState(null); // ✅ file upload
+  const [image, setImage] = useState(null); 
   const [editingId, setEditingId] = useState(null);
 
   if (!user || user.role !== "admin") {
@@ -18,7 +18,7 @@ export default function AdminProductsPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleFileChange = (e) => {
-    setImage(e.target.files[0]); // ✅ save file
+    setImage(e.target.files[0]); 
   };
 
   const handleSubmit = async (e) => {
@@ -29,13 +29,13 @@ export default function AdminProductsPage() {
       formData.append(key, form[key]);
     }
     if (image) {
-      formData.append("image", image); // ✅ send file to backend
+      formData.append("image", image);
     }
 
     if (editingId) {
-      await updateProduct(editingId, formData, true); // ✅ tell hook this is FormData
+      await updateProduct(editingId, formData, true);
     } else {
-      await createProduct(formData, true); // ✅ tell hook this is FormData
+      await createProduct(formData, true); 
     }
 
     setForm({ name: "", description: "", price: "", discount: "", inventory: "" });
@@ -52,7 +52,7 @@ export default function AdminProductsPage() {
       inventory: product.inventory,
     });
     setEditingId(product.id);
-    setImage(null); // reset file
+    setImage(null); 
   };
 
   return (
@@ -61,7 +61,7 @@ export default function AdminProductsPage() {
         {editingId ? "Update Product" : "Add Product"}
       </h1>
 
-      {/* Form */}
+     
       <form onSubmit={handleSubmit} className="grid gap-4 mb-6">
         <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border p-2 rounded" required />
         <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="border p-2 rounded" />
@@ -69,7 +69,7 @@ export default function AdminProductsPage() {
         <input type="number" name="discount" value={form.discount} onChange={handleChange} placeholder="Discount (%)" className="border p-2 rounded" />
         <input type="number" name="inventory" value={form.inventory} onChange={handleChange} placeholder="Inventory" className="border p-2 rounded" />
         
-        {/* ✅ File Upload */}
+       
         <input type="file" accept="image/*" onChange={handleFileChange} className="border p-2 rounded" />
 
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
@@ -77,7 +77,7 @@ export default function AdminProductsPage() {
         </button>
       </form>
 
-      {/* Products Table */}
+     
       <h2 className="text-lg font-semibold mb-2">All Products</h2>
       <table className="w-full border">
         <thead>

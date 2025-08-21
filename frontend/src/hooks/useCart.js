@@ -5,7 +5,6 @@ export default function useCart(setNumCartItems) {
   const queryClient = useQueryClient();
   const cartCode = localStorage.getItem("cart_code");
 
-  // Fetch cart
   const { data: cart, isLoading } = useQuery({
     queryKey: ["cart", cartCode],
     queryFn: async () => {
@@ -20,7 +19,6 @@ export default function useCart(setNumCartItems) {
     },
   });
 
-  // Update quantity mutation
   const updateQuantity = useMutation({
     mutationFn: async ({ itemId, quantity }) => {
       await API.put("/cart-items/", { cart_item_id: itemId, quantity });
@@ -28,7 +26,6 @@ export default function useCart(setNumCartItems) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart", cartCode] }),
   });
 
-  // Remove item mutation
   const removeItem = useMutation({
     mutationFn: async (itemId) => {
       await API.delete("/cart-items/", { data: { cart_item_id: itemId } });

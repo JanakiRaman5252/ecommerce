@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import API, { API_URL } from "../api";
+import API from "../api";
 
 const AuthContext = createContext();
 
@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  // 🔹 Login
   const login = async (email, password) => {
     try {
       const res = await API.post("login/", { email, password });
@@ -25,7 +24,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 🔹 Logout
   const logout = async () => {
     try {
       const refresh = localStorage.getItem("refresh");
@@ -39,7 +37,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  // 🔹 Auto-logout if token expired
   useEffect(() => {
     const token = localStorage.getItem("access");
     if (token) {
@@ -54,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 🔹 Axios interceptor for auto token refresh
   useEffect(() => {
     const interceptor = API.interceptors.response.use(
       (response) => response,
@@ -90,5 +86,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// 🔹 Custom hook
 export const useAuth = () => useContext(AuthContext);
