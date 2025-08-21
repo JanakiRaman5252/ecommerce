@@ -67,27 +67,21 @@ class CartItemAPIView(APIView):
             if not cart_code or not product_id:
                 return Response({"error": "cart_code and product_id are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Get or create cart
             cart, _ = Cart.objects.get_or_create(cart_code=cart_code)
             product = Product.objects.get(id=product_id)
 
-            # Check stock before creating
             if product.inventory < product_quantity:
                 return Response({"error": "Not enough stock available"}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Get or create CartItem
             cartitem, created = CartItem.objects.get_or_create(cart=cart, product=product)
             if not created:
-                # If already exists, just increase quantity
                 cartitem.quantity += product_quantity
             else:
                 cartitem.quantity = product_quantity
             cartitem.save()
 
-            # ✅ Update cart total
             cart.update_total()
 
-            # ✅ Return full cart with all items
             serializer = CartSerializer(cart)
             return Response(
                 {"data": serializer.data, "message": "Cart updated successfully"},
@@ -107,7 +101,6 @@ class CartItemAPIView(APIView):
 
         cart_item = get_object_or_404(CartItem, pk=cart_item_id)
 
-        # ✅ Check stock before updating
         if new_quantity is not None:
             new_quantity = int(new_quantity)
             if cart_item.product.inventory < new_quantity:
@@ -147,7 +140,6 @@ class ProductInCartAPIView(APIView):
             return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
-# -------- Cart Status --------
 class CartProductStatus(APIView):
     def get(self, request):
         cart_code = request.query_params.get("cart_code")
@@ -159,7 +151,6 @@ class CartProductStatus(APIView):
             serializer = SimpleCartSerializer(cart)
             return Response({"data": serializer.data}, status=status.HTTP_200_OK)
         except Cart.DoesNotExist:
-            # Return 0 items instead of error for better frontend handling
             return Response({"data": {"num_of_items": 0}}, status=status.HTTP_200_OK)
 class CheckoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -172,7 +163,6 @@ class CheckoutView(APIView):
         try:
             cart = Cart.objects.get(cart_code=cart_code, paid=False)
 
-            # Assign user if not set
             if cart.user is None:
                 cart.user = request.user
                 cart.save(update_fields=["user"])

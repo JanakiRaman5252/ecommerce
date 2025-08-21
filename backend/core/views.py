@@ -5,10 +5,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import logout
 
 from .serializers import RegisterSerializer, LoginSerializer
-from .models import CustomUser
 
 
-# 🔹 Signup
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -18,7 +16,6 @@ class RegisterAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# 🔹 Login
 class LoginAPIView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -38,7 +35,6 @@ class LoginAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# 🔹 Logout
 class LogoutAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -46,7 +42,7 @@ class LogoutAPIView(APIView):
         try:
             refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
-            token.blacklist()   # requires SimpleJWT blacklist app
+            token.blacklist()  
             logout(request)
             return Response({"message": "Successfully logged out"}, status=status.HTTP_200_OK)
         except Exception as e:

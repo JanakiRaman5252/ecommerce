@@ -1,7 +1,7 @@
 🛒 Full Stack E-Commerce (React + Django)
 
 This is a full-stack e-commerce project built with Django REST Framework (backend) and React (frontend).
-It includes authentication (JWT), product management, cart, checkout, orders, wishlist, and admin functionality.
+It includes authentication (JWT), product management, cart, checkout, orders, and admin functionality.
 
 🚀 Features
 
@@ -15,9 +15,7 @@ Checkout with order creation & inventory updates.
 
 User profile and "My Orders".
 
-Admin panel (manage products, categories, orders).
-
-Razorpay integration (optional, for payments).
+Admin panel (manage products).
 
 Fully responsive React frontend.
 
@@ -29,7 +27,6 @@ Frontend: React (Vite), React Router, React Query.
 
 Authentication: JWT (djangorestframework-simplejwt).
 
-Deployment Ready: Docker / Nginx / Gunicorn.
 
 📦 Installation & Setup
 1. Clone the Repository

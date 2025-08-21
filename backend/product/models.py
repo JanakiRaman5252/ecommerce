@@ -5,7 +5,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # %
+    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0)  
     inventory = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -22,7 +22,7 @@ class Cart(models.Model):
     cart_code = models.CharField(max_length=50, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     paid = models.BooleanField(default=False)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # ✅ store cart total
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)  
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
